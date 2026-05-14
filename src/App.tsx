@@ -6,6 +6,7 @@ import FilterBar from './components/FilterBar';
 import Header from './components/Header';
 import { todoReducer, TodoAction } from './reducers/todoReducer';
 import { ThemeProvider } from './context/ThemeContext';
+import { MovieBrowser } from './components/movies/MovieBrowser';
 
 // 1. IMPORTUJEMY FORMULARZ Z LAB 7
 import MultiStepForm from './components/forms/MultiStepForm';
@@ -52,14 +53,11 @@ export default function App() {
     });
   }, [state.todos, activeFilter]);
 
-  return (
-    <ThemeProvider>
-      {/* 1. Skip Navigation Link - wymóg Lab 8 */}
-      <a href="#main-content" className="skip-link">
-        Skocz do treści głównej
-      </a>
+return (
+  <ThemeProvider>
+    <a href="#main-content" className="skip-link">Skocz do treści głównej</a>
 
-      <div style={{ maxWidth: '800px', margin: '0 auto', padding: '20px' }}>
+    <div style={{ maxWidth: '800px', margin: '0 auto', padding: '20px' }}>
         <header role="banner">
           <Header 
             activeCount={state.todos.filter(t => !t.completed).length} 
@@ -67,10 +65,9 @@ export default function App() {
           />
         </header>
 
-        {/* 2. Główny punkt wejścia dla czytnika ekranu */}
-        <main id="main-content" tabIndex={-1} role="main">
-          
-          <section aria-labelledby="todo-section-title">
+      <main id="main-content" tabIndex={-1} role="main">
+        
+      <section aria-labelledby="todo-section-title">
             <h2 id="todo-section-title" className="sr-only">Lista zadań</h2>
             <TodoInput onAdd={handleAdd} />
             <FilterBar activeFilter={activeFilter} onFilterChange={setActiveFilter} />
@@ -82,18 +79,24 @@ export default function App() {
             />
           </section>
 
-          <hr style={{ margin: '60px 0', border: 'none', borderTop: '2px dashed #ccc' }} />
+        <hr style={{ margin: '60px 0', border: 'none', borderTop: '2px dashed #ccc' }} />
 
-          <section aria-labelledby="form-section-title">
+        <section aria-labelledby="form-section-title">
             <h2 id="form-section-title" className="sr-only">Formularz rejestracji</h2>
             <MultiStepForm />
           </section>
-        </main>
 
-        <footer style={{ marginTop: '40px', textAlign: 'center', fontSize: '0.8rem' }}>
-          <p>&copy; 2026 TodoApp - Projekt Lab ZIU</p>
-        </footer>
-      </div>
-    </ThemeProvider>
-  );
+        <hr style={{ margin: '60px 0', border: 'none', borderTop: '2px dashed #ccc' }} />
+
+        {/* NOWA SEKCJA LAB 9 */}
+        <MovieBrowser />
+
+      </main>
+
+      <footer style={{ marginTop: '40px', textAlign: 'center', fontSize: '0.8rem' }}>
+        <p>&copy; 2026 TodoApp - Projekt Lab ZIU</p>
+      </footer>
+    </div>
+  </ThemeProvider>
+);
 }
