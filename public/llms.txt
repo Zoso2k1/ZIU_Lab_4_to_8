@@ -1,0 +1,13 @@
+# Aplikacja Todo & Movie Browser (Projekt Lab ZIU)
+
+> Jest to przykładowa aplikacja demonstracyjna utworzona w ramach Laboratorium ZIU, 
+> łącząca zarządzanie listą zadań (Todo) z przeglądarką filmów korzystającą z TMDB API.
+
+## Dostępne funkcje
+
+- **[Aplikacja Todo](/):** Główne narzędzie do zarządzania zadaniami. Obejmuje pełne operacje CRUD, lokalne filtrowanie i globalne zliczanie stanu.
+- **[Formularz Rejestracji](/):** Wieloetapowy formularz (wizard) symulujący rejestrację użytkownika wraz z walidacją strukturalną za pomocą Zod.
+- **[Przeglądarka Filmów](/):** Zintegrowana wyszukiwarka filmów. Pobiera dane z publicznego REST API, obsługuje debouncing, ładowanie z symulacją i zarządzanie lokalną pamięcią dla ulubionych pozycji.
+
+## Standardy Techniczne
+Strona została zaprojektowana zgodnie ze standardami dostępności WCAG 2.1 AA. Zaimplementowano kluczowe mechanizmy takie jak Skip Links, ARIA Live Regions do obsługi komunikatów i zarządzanie fokusem wewnątrz aplikacji SPA.
