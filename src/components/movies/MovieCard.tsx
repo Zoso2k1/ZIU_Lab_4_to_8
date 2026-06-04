@@ -1,6 +1,8 @@
+TypeScript
 import React, { useState, useCallback } from 'react';
 import { useFavorites } from '../../hooks/useFavorites';
 import type { Movie } from '../../hooks/useFetchMovies';
+import { useTracking } from '../../hooks/useTracking';
 
 const IMG_BASE = 'https://image.tmdb.org/t/p/w500';
 
@@ -8,11 +10,18 @@ interface Props { movie: Movie; }
 
 export function MovieCard({ movie }: Props) {
   const { isFavorite, toggleFavorite } = useFavorites();
+  const { trackEvent } = useTracking(); // <-- 2. INICJALIZACJA HOOKA
   const [optimisticFav, setOptimisticFav] = useState<boolean | null>(null);
   
   const displayedFav = optimisticFav ?? isFavorite(movie.id);
 
   const handleToggle = useCallback(async () => {
+    // <-- 3. ŚLEDZENIE KLIKNIĘCIA
+    trackEvent(displayedFav ? 'remove_from_favorites' : 'add_to_favorites', {
+      movieId: movie.id,
+      movieTitle: movie.title
+    });
+
     setOptimisticFav(!displayedFav);
     try {
       await toggleFavorite(movie);
@@ -20,7 +29,7 @@ export function MovieCard({ movie }: Props) {
     } catch {
       setOptimisticFav(null);
     }
-  }, [displayedFav, toggleFavorite, movie]);
+  }, [displayedFav, toggleFavorite, movie, trackEvent]); // pamiętaj dodać trackEvent do zależności
 
   return (
     <div className='movie-card' style={{ border: '1px solid #ddd', padding: '10px', borderRadius: '8px' }}>
